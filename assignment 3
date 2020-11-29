@@ -1,0 +1,175 @@
+FIBO
+def fibonacci(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        x = fibonacci(n-1) + fibonacci(n-2)
+        return x
+print (fibonacci(n))
+
+INSS
+def ins(lst):
+    swaps=0
+    for ind in range(1,len(lst)):
+        num= lst[ind]
+        i = ind-1
+        while i>=0:
+            if num < lst[i]:
+                lst[i+1] = lst[i]
+                lst[i] = num
+                i = i-1
+                swaps += 1
+    return (swaps)
+print (ins(lst))
+
+MAJ
+import numpy
+f = open('rosalind_maj.txt')
+l = f.readlines()
+arr = list(map(int, l[1].split()))
+def majority (arr):
+    for a in arr:
+        coun= arr.count(a)
+        if coun>=(len(arr))/2:
+            return a
+        else:
+            return -1
+print (l[0])
+print (majority(arr))
+
+MER
+f = open('rosalind_merr.txt')
+l = f.readlines()
+lst1 = list(map(int, l[1].split()))
+lst2 = list(map(int, l[3].split()))
+lst3= sorted(lst1+lst2)
+print (*lst3)
+
+2SUM
+f = open('rosalind_2sum.txt')
+l = f.readlines()
+k= (list(map(int, l[0].split())))[0]
+n= range((list(map(int, l[0].split())))[1])
+arr = list(map(int, l[1].split()))
+print (k)
+def sum2(arr):
+    b= (-a in arr)
+    if b in arr:
+        ip= arr.index(a)
+        iq= arr.index(b)
+        p= ip+1
+        q= iq+1
+        while p<q:
+            return p, q
+        else:
+            return -1   
+    else:
+        return -1
+
+print (sum2(arr))
+
+BINS
+f = open('rosalind_bins.txt')
+l = f.readlines()
+m = int(l[1])
+data = l[2].split()
+keys = l[3].split()
+for k in keys:
+    if k in data:
+        index= data.index(k)+1
+        print (index, end=' ')
+    else:
+        print (-1, end=' ')
+
+MS
+f = open('rosalind_ms.txt')
+l = f.readlines()
+arr = list(map(int, l[1].split()))
+arrs= " ".join(list(map(str, sorted(arr))))
+print (arrs)
+
+PAR
+f = open('rosalind_par.txt')
+l = f.readlines()
+larr= int(l[0])
+arr = list(map(int, l[1].split()))
+def par(arr):
+    brr= []
+    crr= []
+    drr= [arr[0]]
+    for i in range(len(arr)):    
+        if arr[i]<arr[0]:
+            brr.append(arr[i])
+        elif arr[i]>arr[0]:
+            crr.append(arr[i])
+
+    rr= list(map(str, (brr + drr + crr)))
+    return ' '.join(rr)
+print (par(arr)
+
+
+3SUM
+def sum3(arr):
+    target= 0
+    for p in range(len(arr)):
+        for q in range(len(arr)):
+            for r in range(len(arr)):
+                1<=p<q<r<=len(arr)
+                if arr[p]+ arr[q]+ arr[r]==target:
+                    print (p, q, r)
+                    return p, q, r
+                else:
+                    print (-1)
+                    return (-1)
+
+INV
+f = open('rosalind_inv.txt')
+l = f.readlines()
+larr= int(l[0])
+arr = list(map(int, l[1].split()))
+sarr= sorted(arr)
+def inv(arr):
+    invs= 0
+    for a in arr:
+        ai= arr.index(a)
+        si= sarr.index(a)
+        if ai!=si:
+            invs+=1
+            del arr[ai]
+            arr.insert(si, a)
+        else:
+            invs+=0
+    
+    return (invs)
+print (inv(arr))
+
+PAR3
+f = open('rosalind_par3.txt')
+l = f.readlines()
+larr= int(l[0])
+arr = list(map(int, l[1].split()))
+def par3(arr):
+    brr= []
+    crr= []
+    drr= []
+    for i in range(len(arr)):    
+        if arr[i]<arr[0]:
+            brr.append(arr[i])
+        elif arr[i]>arr[0]:
+            crr.append(arr[i])
+        elif arr[i]==arr[0]:
+            drr.append(arr[i])
+
+    rr= list(map(str, (brr + drr + crr)))
+    return ' '.join(rr)
+print (par3(arr))
+
+MED
+f = open('rosalind_med.txt')
+l = f.readlines()
+arr = list(map(int, l[1].split()))
+k= int(l[2])-1
+sarr= sorted(arr)
+print (sarr[k])

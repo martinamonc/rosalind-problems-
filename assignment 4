@@ -1,0 +1,157 @@
+DNA
+def dna(s):
+    A = s.count('A')
+    C = s.count('C')
+    G = s.count('G')
+    T = s.count('T')
+    return(A, C, G, T)
+
+s= ""
+print (dna(s))
+
+RNA
+dna= ""
+rna= dna.replace("T", "U")
+print (rna)
+
+REVC
+def reverse_complement(bases):
+    dna= []
+    for b in bases:
+        if b=="T":
+            dna+="A"
+        elif b=="A":
+            dna+="T"
+        elif b=="C":
+            dna+="G"
+        else:
+            dna+="C"
+    dna.reverse()
+    return ("".join(dna))
+print (reverse_complement (dna))
+
+GC
+from Bio import SeqIO
+f = open('rosalind_gc.txt')
+l = f.readlines()
+seq_name= []
+seq_bases= []
+for seq in SeqIO.parse(f, 'fasta'):
+    seq_name.append(str(seq.name))
+    seq_bases.append(str(seq.seq))
+sequences= {seq_name[i]:seq_bases[i] for i in range(len(seq_name))}
+def gc(sequences):
+    gc_percs= {}
+    for key, value in sequences.items():
+        gc_perc= ((value.count(G)+value.count(C))/len(value))*100
+        gc_percs[k]= gc_perc
+        highest= (sorted(gc_percs.items(), key=lambda d: d[1], reverse = True))[0]
+        return highest
+print(gc(sequences))
+
+SUBS
+f = open('rosalind_subs.txt')
+l = f.readlines()
+string= str(l[0])
+t= str(l[1])
+def subs(string, t):
+    lst = []
+    for i in range(len(string)):
+        if string[i:i+len(t)]== t:
+            lst.append(str(i+1))
+    return ' '.join(lst)
+print (subs(string, t))
+
+REVP
+f = open('rosalind_revp.txt')
+l = f.readlines()
+seq= l[1]
+def revp(seq):
+    for i in range(len(seq)):
+        for t in range(4,13):
+            seqr= seq[::-1]
+            seqrr= seqr.replace("A","T").replace("T","A").replace("G","C").replace("C","G")
+            if seq[i:i+t]==seqrr[i:i+t] and i+t<=len(seq):
+                print (i+1, t)
+revp(seq)
+
+SPLC
+from Bio import SeqIO
+f = open('rosalind_splc.txt')
+l = f.readlines()
+seq_name= []
+seq_bases= []
+for seq in SeqIO.parse(f, 'fasta'):
+    seq_name.append(str(seq.name))
+    seq_bases.append(str(seq.seq))
+dna= seq_bases[0]
+introns= seq_bases[1:]
+rna_codons = {
+    'TCT': 'S', 'TCC': 'S', 'TCA': 'S', 'TCG': 'S', 
+    'TTT': 'F', 'TTC': 'F',
+    'TTA': 'L', 'TTG': 'L', 'CTT': 'L', 'CTC': 'L', 'CTA': 'L', 'CTG': 'L',
+    'TAT': 'Y', 'TAC': 'Y',
+    'TGT': 'C', 'TGC': 'C',
+    'TGG': 'W', 
+    'CCT': 'P', 'CCC': 'P', 'CCA': 'P', 'CCG': 'P',
+    'CAT': 'H', 'CAC': 'H',
+    'CAA': 'Q', 'CAG': 'Q',
+    'CGT': 'R', 'CGC': 'R', 'CGA': 'R', 'CGG': 'R', 'AGA': 'R', 'AGG': 'R',
+    'ATT': 'I', 'ATC': 'I', 'ATA': 'I',
+    'ATG': 'M', 
+    'ACT': 'T', 'ACC': 'T', 'ACA': 'T', 'ACG': 'T', 
+    'AAT': 'N', 'AAC': 'N', 
+    'AAA': 'K', 'AAG': 'K',
+    'GTT': 'V', 'GTC': 'V', 'GTA': 'V', 'GTG': 'V',
+    'GCT': 'A', 'GCC': 'A', 'GCA': 'A', 'GCG': 'A',
+    'GAT': 'D', 'GAC': 'D',
+    'GAA': 'E', 'GAG': 'E',
+    'GGT': 'G', 'GGC': 'G', 'GGA': 'G', 'GGG': 'G',
+    'TAA': 'end', 'TAG': 'end', 'TGA': 'end'
+}
+def splc(dna, introns):
+    for intr in introns:
+        dna= dna.replace(intron, '')
+    protein= ''
+    for i in range(0, len(dna)-2, 3):
+        if rna_codons[dna[i:i+3]]== 'end':
+            break
+        protein += rna_codons[dna[i:i+3]]
+    return protein
+print (splc(dna, introns))
+
+LEXF
+f= open('rosalind_lexf.txt')
+l= f.readlines()
+seq= (l[0].split())
+n= int(l[1])
+print (seq)
+from itertools import permutations
+perms= list(permutations(s,n))
+print ('\n'.join([''.join(x)for x in perms]))
+
+FIB
+def fibonacci(n,k):
+    r = [0,1]
+    for i in range(n-1):
+        r[i % 2] = r[(i-1) % 2] + k*r[i % 2]
+    return r[n % 2]
+print (fibonacci(29, 4))
+
+LGIS
+f = open('rosalind_lgis.txt')
+l = f.readlines()
+seq= list(l[1])
+def lgis(seq):
+    i=0
+    for i in range(len(seq)):
+        inc= []
+        dec= []
+        if seq[i]<seq[i+1]:
+            inc.append(seq[i])
+            inc.append(seq[i+1])
+        elif seq[i]>seq[i+1]:
+            dec.append(seq[i])
+            dec.append(seq[i+1])
+    return inc, dec
+print (lgis(seq))

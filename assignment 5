@@ -1,0 +1,116 @@
+PROT
+from textwrap import wrap
+f = open('rosalind_prot.txt')
+l = f.readlines()
+cod= l[0]
+rna_codons = {
+"UUU": "F", "CUU": "L", "AUU": "I", "GUU": "V", "UUC": "F", "CUC": "L", "AUC": "I", "GUC": "V",
+           "UUA": "L", "CUA": "L", "AUA": "I", "GUA": "V",
+           "UUG": "L", "CUG": "L", "AUG": "M", "GUG": "V",
+           "UCU": "S", "CCU": "P", "ACU": "T", "GCU": "A",
+           "UCC": "S", "CCC": "P", "ACC": "T", "GCC": "A",
+           "UCA": "S", "CCA": "P", "ACA": "T", "GCA": "A",
+           "UCG": "S", "CCG": "P", "ACG": "T", "GCG": "A",
+           "UAU": "Y", "CAU": "H", "AAU": "N", "GAU": "D",
+           "UAC": "Y", "CAC": "H", "AAC": "N", "GAC": "D",
+           "UAA": "*", "CAA": "Q", "AAA": "K", "GAA": "E",
+           "UAG": "*", "CAG": "Q", "AAG": "K", "GAG": "E",
+           "UGU": "C", "CGU": "R", "AGU": "S", "GGU": "G",
+           "UGC": "C", "CGC": "R", "AGC": "S", "GGC": "G",
+           "UGA": "*", "CGA": "R", "AGA": "R", "GGA": "G",
+           "UGG": "W", "CGG": "R", "AGG": "R", "GGG": "G"
+}
+codons= wrap(cod, 3)
+def prot(codons):
+    protein= []
+    for c in codons:
+        protein.append(rna_codons[c])
+    return ''.join(protein)
+
+print (prot(codons))
+
+HAMM
+f = open('rosalind_hamm.txt')
+l = f.readlines()
+s1= l[0]
+s2= l[1]
+def hamm(s1, s2):
+    hamd= 0
+    for i in range(len(s1)):
+        if s1[i]!=s2[i]:
+            hamd+=1
+    return hamd
+print (hamm(s1,s2))
+
+GRPH
+from Bio import SeqIO
+seq = []
+seqnames = []
+with open ("rosalind_grph.txt") as f:
+    for i in SeqIO.parse(f,'fasta'):
+        seq.append(str(i.seq))
+        seqnames.append(str(i.name))
+for i in range(len(seq)):
+    for b in range(len(seq)):
+        if b!=i:
+            if seq[i][-3:]==seq[b][:3]:
+                print (seqnames[i], seqnames[b])
+
+TRAN
+from Bio import SeqIO
+transitions = [('A', 'G'), ('T', 'C'), ('C', 'T'), ('G', 'A')]
+transversions = [('A', 'T'), ('A', 'C'), ('T', 'A'), ('T', 'G'), ('C', 'A'), ('C', 'G'), ('G', 'T'), ('G', 'C')]
+names= []
+seqs= []
+with open ("rosalind_tran.txt",'r') as fa:
+    for s  in SeqIO.parse(fa,'fasta'):
+        names.append(str(s.name))
+        seqs.append(str(s.seq))
+transicount = 0
+transvcount= 0
+s1, s2 = seqs
+for i in range(len(s1)):
+    if (s1[i], s2[i]) in transitions:
+        transicount+=1
+    if (s1[i], s2[i]) in transversions:
+        transvcount+=1
+print(transicount/transvcount)
+
+TREE
+f = open('rosalind_treee.txt')
+l = f.readlines()
+n= int(l[0])
+k= len(l)-1
+mine= n-1
+res= mine-k
+print (res)
+
+PDST
+from Bio import SeqIO
+seq = []
+seqnames = []
+with open ("rosalind_pdst.txt") as f:
+    for i in SeqIO.parse(f,'fasta'):
+        seq.append(str(i.seq))
+        seqnames.append(str(i.name))
+from difflib import SequenceMatcher
+def similar(s1, s2): 
+    return '%.5f'% (SequenceMatcher(None, s1, s2).ratio())
+for i in range(len(seqnames)):
+    for j in range(len(seqnames)):
+        print(similar(seq[i], seq[j]))
+
+SSEQ
+from Bio import SeqIO
+seq = []
+seqnames = []
+with open ("rosalind_sseqq.txt") as f:
+    for i in SeqIO.parse(f,'fasta'):
+        seq.append(str(i.seq))
+        seqnames.append(str(i.name))
+string= seq[0]
+substring= seq[1]
+s= string.find(substring)
+t= string.find(substring, s)
+print (s, t)
+

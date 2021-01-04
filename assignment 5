@@ -114,3 +114,82 @@ s= string.find(substring)
 t= string.find(substring, s)
 print (s, t)
 
+LCSQ
+from Bio import SeqIO
+seq = []
+seqnames = []
+with open ("rosalind_lcsq.txt") as f:
+    for i in SeqIO.parse(f,'fasta'):
+        seq.append(str(i.seq))
+        seqnames.append(str(i.name))
+s, t= list(seq[0]), list(seq[1])
+subs= []
+for x in s:
+    if x in t:
+        i= t.index(x)
+        subs.append(x)
+        del t[:i]    
+print (''.join(subs))
+
+ORF
+from Bio import SeqIO
+seq = []
+seqnames = []
+with open ("rosalind_orf.txt") as f:
+    for i in SeqIO.parse(f,'fasta'):
+        seq.append(str(i.seq))
+        seqnames.append(str(i.name))
+from textwrap import wrap
+dna_codons= {
+    'TCT': 'S', 'TCC': 'S', 'TCA': 'S', 'TCG': 'S', 
+    'TTT': 'F', 'TTC': 'F',
+    'TTA': 'L', 'TTG': 'L', 'CTT': 'L', 'CTC': 'L', 'CTA': 'L', 'CTG': 'L',
+    'TAT': 'Y', 'TAC': 'Y',
+    'TGT': 'C', 'TGC': 'C',
+    'TGG': 'W', 
+    'CCT': 'P', 'CCC': 'P', 'CCA': 'P', 'CCG': 'P',
+    'CAT': 'H', 'CAC': 'H',
+    'CAA': 'Q', 'CAG': 'Q',
+    'CGT': 'R', 'CGC': 'R', 'CGA': 'R', 'CGG': 'R', 'AGA': 'R', 'AGG': 'R',
+    'ATT': 'I', 'ATC': 'I', 'ATA': 'I',
+    'ATG': 'M', 
+    'ACT': 'T', 'ACC': 'T', 'ACA': 'T', 'ACG': 'T', 
+    'AAT': 'N', 'AAC': 'N', 
+    'AAA': 'K', 'AAG': 'K',
+    'GTT': 'V', 'GTC': 'V', 'GTA': 'V', 'GTG': 'V',
+    'GCT': 'A', 'GCC': 'A', 'GCA': 'A', 'GCG': 'A',
+    'GAT': 'D', 'GAC': 'D',
+    'GAA': 'E', 'GAG': 'E',
+    'GGT': 'G', 'GGC': 'G', 'GGA': 'G', 'GGG': 'G',
+    'TAA': 'end', 'TAG': 'end', 'TGA': 'end'
+}
+s= seq
+codons= wrap(s, 3)  
+protein= []
+def orf(s):
+    for c in codons:
+        if c=='ATG':
+            protein.append('M')
+            protein.append(dna_codons[c])
+            if dna_codons[c]== 'end':
+                break
+return protein
+print (orf(s))
+
+PERM
+import itertools
+f = open('rosalind_perm.txt')
+n= int(f.read())
+lst= []
+for i in range(1, n+1):
+    lst.append(i)
+perm= list(map(str,(list(itertools.permutations(lst)))))
+print (len(perm))
+for p in perm:
+    print (" ".join(p))
+
+INOD
+f = open('rosalind_inod.txt')
+l= int(f.read())
+n= (l-4) + 2
+print (n)

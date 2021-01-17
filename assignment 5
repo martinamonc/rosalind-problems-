@@ -396,3 +396,22 @@ def glob(s,t):
     return (alignments[0][2])
 s, t= seq_bases[0], seq_bases[1]
 print (glob(s, t))
+
+MULT
+def mult(b):
+    count = 0
+    leng= (len(b))
+    for i in range(0, leng-1):
+        for j in range(i+1, leng):
+            for k in range(len(b[j])):
+                if l[i][k] != l[j][k]:
+                    count -= 1
+    for r in range(leng):
+        print(b[r])
+    return count
+
+f = open('rosalind_mult.txt')
+l = f.readlines()
+for x in f:
+    x.strip().split(' ')
+mult(aligned)
